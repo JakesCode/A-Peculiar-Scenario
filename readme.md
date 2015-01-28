@@ -1,10 +1,24 @@
-      .o.            ooooooooo.                                   oooo   o8o                           .oooooo..o                                                     o8o            
-     .888.           `888   `Y88.                                 `888   `"'                          d8P'    `Y8                                                     `"'            
-    .8"888.           888   .d88'  .ooooo.   .ooooo.  oooo  oooo   888  oooo   .oooo.   oooo d8b      Y88bo.       .ooooo.   .ooooo.  ooo. .oo.    .oooo.   oooo d8b oooo   .ooooo.  
-   .8' `888.          888ooo88P'  d88' `88b d88' `"Y8 `888  `888   888  `888  `P  )88b  `888""8P       `"Y8888o.  d88' `"Y8 d88' `88b `888P"Y88b  `P  )88b  `888""8P `888  d88' `88b 
-  .88ooo8888.         888         888ooo888 888        888   888   888   888   .oP"888   888               `"Y88b 888       888ooo888  888   888   .oP"888   888      888  888   888 
- .8'     `888.        888         888    .o 888   .o8  888   888   888   888  d8(  888   888          oo     .d8P 888   .o8 888    .o  888   888  d8(  888   888      888  888   888 
-o88o     o8888o      o888o        `Y8bod8P' `Y8bod8P'  `V88V"V8P' o888o o888o `Y888""8o d888b         8""88888P'  `Y8bod8P' `Y8bod8P' o888o o888o `Y888""8o d888b    o888o `Y8bod8P' 
-                                                                                                                                                                                     
-                                                                                                                                                                                     
-                                                                                                                                                                                     
+  ____      ____   ___    __  __ __  _      ____   ____  ____        _____   __    ___  ____    ____  ____   ____  ___  
+ /    |    |    \ /  _]  /  ]|  |  || |    |    | /    ||    \      / ___/  /  ]  /  _]|    \  /    ||    \ |    |/   \ 
+|  o  |    |  o  )  [_  /  / |  |  || |     |  | |  o  ||  D  )    (   \_  /  /  /  [_ |  _  ||  o  ||  D  ) |  ||     |
+|     |    |   _/    _]/  /  |  |  || |___  |  | |     ||    /      \__  |/  /  |    _]|  |  ||     ||    /  |  ||  O  |
+|  _  |    |  | |   [_/   \_ |  :  ||     | |  | |  _  ||    \      /  \ /   \_ |   [_ |  |  ||  _  ||    \  |  ||     |
+|  |  |    |  | |     \     ||     ||     | |  | |  |  ||  .  \     \    \     ||     ||  |  ||  |  ||  .  \ |  ||     |
+|__|__|    |__| |_____|\____| \__,_||_____||____||__|__||__|\_|      \___|\____||_____||__|__||__|__||__|\_||____|\___/ 
+                                                                                                                        
+
+
+
+Welcome to "A Peculiar Scenario" - it's a rather strange game based in the Python Language.
+It is developed by JakesCode, better known as Stringcraftgaming on the Indie Games Website, Gamejolt.
+Jake has worked with many languages in the past, but Python is his latest "mission", so to speak.
+
+"A Pecular Scenario" is a Text-Based Adventure Game, where commands are inputted into a "main line"
+to complete tasks, move, inspect locations, take items - the list goes on.
+
+The game will be updated whenever possible.
+Please leave issues on the dedicated GitHub section.
+
+Thanks for playing!
+
+- JakesCode
