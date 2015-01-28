@@ -3,6 +3,10 @@ import os
 
 itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right."}
 
+journalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)"}
+
+fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference."}
+
 #Set up all the processes and functions etc.
 #----------------------------------------------------------------
 def initLocations():
@@ -56,9 +60,7 @@ def inspectItem(item):
 	os.system("cls")
 
 def journalRead(entry):
-	if entry==1:
-		print("")
-		pass
+	print(journalDict[entry])
 
 
 def callEvent(eventName):
@@ -68,6 +70,12 @@ def callEvent(eventName):
 		print("The wrench has a lot of marks on it.")
 		print("")
 		print("Wait a minute.... there's a red mark on it!")
+		print("")
+		input("Please press a key....")
+		print("")
+		print("! - Journal Entry Added.")
+		journalData.append("wrench")
+		journalDict["wrench"] = fullJournalDict["wrench"]
 		storyProgression += 10
 
 def takeItem(passedItem):
@@ -190,7 +198,7 @@ def displayMessage(call):
 		print("Please enter the keyword you want:")
 		print("")
 		entrySelection = input("?: ")
-		journalRead(int(entrySelection))
+		journalRead(entrySelection)
 		pass
 
 	print("")
