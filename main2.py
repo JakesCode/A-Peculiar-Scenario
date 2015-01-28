@@ -1,6 +1,8 @@
 name="blank"
 import os
 
+itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right."}
+
 #Set up all the processes and functions etc.
 #----------------------------------------------------------------
 def initLocations():
@@ -11,7 +13,10 @@ def initLocations():
 	inventoryData = ["map","note"]
 	locItems = ["","A Steel Wrench","Shattered Glass","Top Hat","'The Human Brain' by Dr E. Jameson"]
 	itemData = ["","wrench","glass","hat","book"]
-	return locName, locDesc, locLongDesc, playerInv, inventoryData, locItems, itemData
+
+	journalEntries = ["null"]
+	journalData = ["letter"]
+	return locName, locDesc, locLongDesc, playerInv, inventoryData, locItems, itemData, journalEntries, journalData
 
 def mainProcess(command):
 	if command=="help":
@@ -35,35 +40,47 @@ def mainProcess(command):
 	if command=="take":
 		displayMessage("take")
 		pass
+	if command=="journal":
+		displayMessage("journal")
+		pass
 
 
 def inspectItem(item):
+	global itemDict
 	os.system("cls")
-	if item=="map":
-		print("A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.")
-		pass
 
-	if item=="note":
-		print("The note reads:")
-		print("")
-		print("Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are!")
-		print("Lots of luck from,")
-		print("Dr. Brandshire")
-		print("CEO of NewLife Corp")
-		pass
-
-	if item=="wrench":
-		print("It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.")
+	print(itemDict[item])
 
 	print("")
 	input("Press any key....")
 	os.system("cls")
 
-def takeItem(item):
+def journalRead(entry):
+	if entry==1:
+		print("")
+		pass
+
+
+def callEvent(eventName):
+	global storyProgression
+	if eventName=="wrench" and storyProgression==0:
+		os.system("cls")
+		print("The wrench has a lot of marks on it.")
+		print("")
+		print("Wait a minute.... there's a red mark on it!")
+		storyProgression += 10
+
+def takeItem(passedItem):
 	playerInv.append(locItems[currentLoc])
 	inventoryData.append(itemData[currentLoc])
-	del locItems[currentLoc]
-	del itemData[currentLoc]
+
+	# Is it an event item?
+	if itemData[currentLoc]=="wrench":
+		callEvent("wrench")
+		pass
+
+	locItems[currentLoc]=""
+	itemData[currentLoc]=""
 
 def displayMessage(call):
 	global currentLoc
@@ -82,6 +99,7 @@ def displayMessage(call):
 		print("- INSPECT - Look at, or read, an item in your inventory.")
 		print("- SCAN - View the items in the current location.")
 		print("- TAKE - Allows the player to obtain an item in a certain location.")
+		print("- JOURNAL - Read thoughts of the player and re-read certain events.")
 		print("")
 		print("Believe it or not, there's a story in this game.")
 		print("Your current position in the story is indicated by a percentage")
@@ -95,7 +113,7 @@ def displayMessage(call):
 		if currentLoc==0:
 			print("Left: You cannot move left.")
 			print("Right: " + locName[currentLoc+1])
-		elif currentLoc>1:
+		elif currentLoc>=1:
 			print("Left: " + locName[currentLoc-1])
 			print("Right: " + locName[currentLoc+1])
 		elif currentLoc==19:
@@ -112,7 +130,7 @@ def displayMessage(call):
 		elif direction=="right":
 			currentLoc = currentLoc+1
 			pass
-	pass
+		pass
 
 	if call=="location":
 		os.system("cls")
@@ -164,6 +182,17 @@ def displayMessage(call):
 		takeItem(itemSelection)
 		pass
 
+	if call=="journal":
+		os.system("cls")
+		print("Which item would you like to read again?")
+		print("")
+		print(journalData)
+		print("Please enter the keyword you want:")
+		print("")
+		entrySelection = input("?: ")
+		journalRead(int(entrySelection))
+		pass
+
 	print("")
 	input("Press any key to return....")
 	os.system("cls")
@@ -187,7 +216,7 @@ def displayMessage(call):
 #print("Hello, " + name + "!")
 #print("")
 
-locName, locDesc, locLongDesc, playerInv, inventoryData, locItems, itemData = initLocations()
+locName, locDesc, locLongDesc, playerInv, inventoryData, locItems, itemData, journalEntries, journalData = initLocations()
 global health
 health = 10
 global currentLoc
@@ -199,7 +228,7 @@ storyProgression = 0
 
 #Let's say the final location is 20.
 
-while currentLoc < 20:
+while currentLoc < 20: #Change to max location if ever changed (if max location is ever changed)
 	print("----" + locName[currentLoc] + "----")
 	print("--" + locDesc[currentLoc] + "--")
 	print("")
