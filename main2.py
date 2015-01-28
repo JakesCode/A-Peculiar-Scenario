@@ -229,6 +229,13 @@ storyProgression = 0
 #Let's say the final location is 20.
 
 while currentLoc < 20: #Change to max location if ever changed (if max location is ever changed)
+	print(" _____                _ _               _____                           _       ")
+	print("|  __ \              | (_)             / ____|                         (_)      ")
+	print("| |__) |__  ___ _   _| |_  __ _ _ __  | (___   ___ ___ _ __   __ _ _ __ _  ___  ")
+	print("|  ___/ _ \/ __| | | | | |/ _` | '__|  \___ \ / __/ _ \ '_ \ / _` | '__| |/ _ \ ")
+	print("| |  |  __/ (__| |_| | | | (_| | |     ____) | (_|  __/ | | | (_| | |  | | (_) |")
+	print("|_|   \___|\___|\__,_|_|_|\__,_|_|    |_____/ \___\___|_| |_|\__,_|_|  |_|\___/ ")
+	print("")	
 	print("----" + locName[currentLoc] + "----")
 	print("--" + locDesc[currentLoc] + "--")
 	print("")
