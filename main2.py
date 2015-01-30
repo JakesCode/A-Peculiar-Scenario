@@ -5,7 +5,7 @@ import os
 
 #Set up all the dictionaries.
 #----------------------------------------------------------------
-itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right.", "hat": "The hat seems to have a few marks on it, but there are many black marks on it; they look like burns....","microscope": "A small and handy piece of technology that can look at evidence in greater detail."}
+itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right.", "hat": "The hat seems to have a few marks on it, but there are many black marks on it; they look like burns....","book": "The book goes into great detail about the Human Brain. However, someone looks like they skimmed through these pages in a hurry....", "microscope": "A small and handy piece of technology that can look at evidence in greater detail."}
 
 journalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)"}
 
@@ -14,7 +14,7 @@ fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memor
 #Set up all the processes and functions etc.
 #----------------------------------------------------------------
 def initLocations():
-	locName = ["The Town","The Blacksmith Hut","The Pub","The Street","The Library","The Laboratory"]
+	locName = ["The Town","The Blacksmith Hut","The Pub","The Street","The Library","The Laboratory","You cannot move right."]
 	locDesc = ["A Small Town","A Small Hut","A nice pub","An ancient paved street","Filled with brilliant books","A modern and advanced building"]
 	locLongDesc = ["This town is filled with beautiful shops, all built by hand by the local residents. It is a place of tranquility and friendliness.","The Blacksmith Hut is an old, hand-built establishment which has housed many blacksmiths over the years.","The Pub has always been here. Inside is a beautiful carpet with burgandy squares, and the bar is decorated with carved wood pillars and surfaces.","Neatly aligned cobble lines the street, with squares of stones filling in the road.","Old books line dusty shelves, but the strange mysterious nature of discovering something new within the leather-bound pages is too much to resist.","The lab is decorated with gleaming white paint, symbolizing the graceful advance of modern science in the world today."]
 	playerInv = ["A Leather Map","A Tattered Note"]
@@ -55,6 +55,7 @@ def mainProcess(command):
 		displayMessage("use")
 		pass
 	if command=="kill":
+		# Will's idea I swear
 		print("")
 		print("That's just sad.")
 		input("")
@@ -73,6 +74,9 @@ def inspectItem(item):
 
 def journalRead(entry):
 	print(journalDict[entry])
+
+def microscope(item):
+	pass
 
 def useMicroscope():
 	os.system("cls")
@@ -102,6 +106,8 @@ def callEvent(eventName):
 		input("Please press a key....")
 		print("")
 		print("! - Journal Entry Added.")
+		playerInv.append(locItems[currentLoc])
+		inventoryData.append(itemData[currentLoc])
 		journalData.append("wrench")
 		journalDict["wrench"] = fullJournalDict["wrench"]
 		storyProgression += 10
@@ -115,6 +121,8 @@ def callEvent(eventName):
 		print("There seems to be a door near the glass, but it's bolted shut.")
 		print("")
 		print("! - Journal Entry Added")
+		playerInv.append(locItems[currentLoc])
+		inventoryData.append(itemData[currentLoc])
 		journalData.append("glass")
 		journalDict["glass"] = fullJournalDict["glass"]
 		storyProgression += 10
@@ -128,6 +136,8 @@ def callEvent(eventName):
 		print("Perhaps it would come in handy?")
 		print("")
 		print("! - Journal Entry Added")
+		playerInv.append(locItems[currentLoc])
+		inventoryData.append(itemData[currentLoc])
 		journalData.append("microscope")
 		journalDict["microscope"] = fullJournalDict["microscope"]
 		storyProgression += 10
@@ -138,6 +148,15 @@ def useItem(item):
 	global storyProgression
 	global currentLoc
 	global microscopeState
+
+	# Microscope
+	# --------------------------------------------
+	if item=="microscope" and microscopeState==1:
+		useMicroscope()
+		pass
+	# --------------------------------------------
+	# End of Microscope section
+
 	if item=="wrench" and currentLoc==2 and storyProgression==20:
 		os.system("cls")
 		print("The door is unbolted.")
@@ -158,7 +177,7 @@ def useItem(item):
 		journalData.remove("bolts")
 		pass
 
-	if item=="microscope" and currentLoc==5 and storyProgression==30:
+	if item=="microscope" and currentLoc==4:
 		os.system("cls")
 		print("")
 		print("")
@@ -175,13 +194,7 @@ def useItem(item):
 		journalData.remove("bolts")
 		pass
 
-	if item=="microscope" and microscopeState==1:
-		useMicroscope()
-		pass
-
 def takeItem(passedItem):
-	playerInv.append(locItems[currentLoc])
-	inventoryData.append(itemData[currentLoc])
 
 	# Is it an event item?
 	if itemData[currentLoc]=="wrench":
@@ -231,7 +244,7 @@ def displayMessage(call):
 		if currentLoc==0:
 			print("Left: You cannot move left.")
 			print("Right: " + locName[currentLoc+1])
-		elif currentLoc>=1 and currentLoc<4:
+		elif currentLoc>=1 and currentLoc<=5:
 			print("Left: " + locName[currentLoc-1])
 			print("Right: " + locName[currentLoc+1])
 		elif currentLoc==6:
