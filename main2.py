@@ -1,22 +1,26 @@
-name="blank"
+name = "blank"
+global microscopeState
+microscopeState = 0
 import os
 
-itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right."}
+#Set up all the dictionaries.
+#----------------------------------------------------------------
+itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right.", "hat": "The hat seems to have a few marks on it, but there are many black marks on it; they look like burns....","microscope": "A small and handy piece of technology that can look at evidence in greater detail."}
 
 journalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)"}
 
-fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference.", "glass": "This piece of glass was with many other pieces of glass. This is the largest piece, it seems.", "bolts": "There are bolts around the door, near where I found the broken glass. Perhaps a certain tool will help me open the door.", "poison": "The storage locker in the Pub seemed to have a little too much Rat Poison to match the cleanliness of the Pub. Something is going on here...."}
+fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference.", "glass": "This piece of glass was with many other pieces of glass. This is the largest piece, it seems.", "bolts": "There are bolts around the door, near where I found the broken glass. Perhaps a certain tool will help me open the door.", "poison": "The storage locker in the Pub seemed to have a little too much Rat Poison to match the cleanliness of the Pub. Something is going on here....","microscope": "The microscope is a small but handy piece of equipment. I can now use the microscope from the USE menu."}
 
 #Set up all the processes and functions etc.
 #----------------------------------------------------------------
 def initLocations():
-	locName = ["The Town","The Blacksmith Hut","The Pub","The Street","The Library"]
-	locDesc = ["A Small Town","A Small Hut","A nice pub","An ancient paved street","Filled with brilliant books"]
-	locLongDesc = ["This town is filled with beautiful shops, all built by hand by the local residents. It is a place of tranquility and friendliness.","The Blacksmith Hut is an old, hand-built establishment which has housed many blacksmiths over the years.","The Pub has always been here. Inside is a beautiful carpet with burgandy squares, and the bar is decorated with carved wood pillars and surfaces.","Neatly aligned cobble lines the street, with squares of stones filling in the road.","Old books line dusty shelves, but the strange mysterious nature of discovering something new within the leather-bound pages is too much to resist."]
+	locName = ["The Town","The Blacksmith Hut","The Pub","The Street","The Library","The Laboratory"]
+	locDesc = ["A Small Town","A Small Hut","A nice pub","An ancient paved street","Filled with brilliant books","A modern and advanced building"]
+	locLongDesc = ["This town is filled with beautiful shops, all built by hand by the local residents. It is a place of tranquility and friendliness.","The Blacksmith Hut is an old, hand-built establishment which has housed many blacksmiths over the years.","The Pub has always been here. Inside is a beautiful carpet with burgandy squares, and the bar is decorated with carved wood pillars and surfaces.","Neatly aligned cobble lines the street, with squares of stones filling in the road.","Old books line dusty shelves, but the strange mysterious nature of discovering something new within the leather-bound pages is too much to resist.","The lab is decorated with gleaming white paint, symbolizing the graceful advance of modern science in the world today."]
 	playerInv = ["A Leather Map","A Tattered Note"]
 	inventoryData = ["map","note"]
-	locItems = ["","A Steel Wrench","Shattered Glass","Top Hat","'The Human Brain' by Dr E. Jameson"]
-	itemData = ["","wrench","glass","hat","book"]
+	locItems = ["","A Steel Wrench","Shattered Glass","Top Hat","'The Human Brain' by Dr E. Jameson","Microscope"]
+	itemData = ["","wrench","glass","hat","book","microscope"]
 
 	journalEntries = ["null"]
 	journalData = ["letter"]
@@ -50,6 +54,11 @@ def mainProcess(command):
 	if command=="use":
 		displayMessage("use")
 		pass
+	if command=="kill":
+		print("")
+		print("That's just sad.")
+		input("")
+		os.system("cls")
 
 
 def inspectItem(item):
@@ -65,9 +74,25 @@ def inspectItem(item):
 def journalRead(entry):
 	print(journalDict[entry])
 
+def useMicroscope():
+	os.system("cls")
+	print("You hold the microscope close to your eye....")
+	print("")
+	print("Your current inventory:")
+	print("")
+	print(playerInv)
+	print("")
+	print("Use these keywords to use the microscope on the item:")
+	print("")
+	print(inventoryData)
+	print("")
+	print("Please enter the keyword you want:")
+	microscopeSelection = input("?: ")
+	microscope(microscopeSelection)
 
 def callEvent(eventName):
 	global storyProgression
+	global microscopeState
 	if eventName=="wrench" and storyProgression==0:
 		os.system("cls")
 		print("The wrench has a lot of marks on it.")
@@ -97,10 +122,22 @@ def callEvent(eventName):
 		journalDict["bolts"] = fullJournalDict["bolts"]
 		pass
 
+	if eventName=="microscope" and storyProgression==20:
+		os.system("cls")
+		print("The lab is filled with these amazing inventions.")
+		print("Perhaps it would come in handy?")
+		print("")
+		print("! - Journal Entry Added")
+		journalData.append("microscope")
+		journalDict["microscope"] = fullJournalDict["microscope"]
+		storyProgression += 10
+		microscopeState = 1
+		pass
+
 def useItem(item):
 	global storyProgression
 	global currentLoc
-
+	global microscopeState
 	if item=="wrench" and currentLoc==2 and storyProgression==20:
 		os.system("cls")
 		print("The door is unbolted.")
@@ -121,6 +158,27 @@ def useItem(item):
 		journalData.remove("bolts")
 		pass
 
+	if item=="microscope" and currentLoc==5 and storyProgression==30:
+		os.system("cls")
+		print("")
+		print("")
+		print("It's just a storage locker. There's a few screws and around four bottles.")
+		print("The bottles seem to all be rat poison. I don't see why somebody would need")
+		print("such an exessive amount; the pub seems clean enough....")
+		print("")
+		print("! - Journal Entry Added")
+		print("")
+		input("Please press a key....")
+		journalData.append("poison")
+		journalDict["poison"] = fullJournalDict["poison"]
+		storyProgression += 10
+		journalData.remove("bolts")
+		pass
+
+	if item=="microscope" and microscopeState==1:
+		useMicroscope()
+		pass
+
 def takeItem(passedItem):
 	playerInv.append(locItems[currentLoc])
 	inventoryData.append(itemData[currentLoc])
@@ -132,6 +190,10 @@ def takeItem(passedItem):
 
 	if itemData[currentLoc]=="glass":
 		callEvent("glass")
+		pass
+
+	if itemData[currentLoc]=="microscope":
+		callEvent("microscope")
 		pass
 
 	locItems[currentLoc]=""
@@ -169,10 +231,10 @@ def displayMessage(call):
 		if currentLoc==0:
 			print("Left: You cannot move left.")
 			print("Right: " + locName[currentLoc+1])
-		elif currentLoc>=1:
+		elif currentLoc>=1 and currentLoc<4:
 			print("Left: " + locName[currentLoc-1])
 			print("Right: " + locName[currentLoc+1])
-		elif currentLoc==19:
+		elif currentLoc==6:
 			print("Left: " + locName[currentLoc-1])
 			print("Right: You cannot move right.")
 		print("")
@@ -298,16 +360,14 @@ invPosition = 0
 global storyProgression
 storyProgression = 0
 
-#Let's say the final location is 20.
-
-while currentLoc < 20: #Change to max location if ever changed (if max location is ever changed)
+while currentLoc < 7:
 	print(" _____                _ _               _____                           _       ")
 	print("|  __ \              | (_)             / ____|                         (_)      ")
 	print("| |__) |__  ___ _   _| |_  __ _ _ __  | (___   ___ ___ _ __   __ _ _ __ _  ___  ")
 	print("|  ___/ _ \/ __| | | | | |/ _` | '__|  \___ \ / __/ _ \ '_ \ / _` | '__| |/ _ \ ")
 	print("| |  |  __/ (__| |_| | | | (_| | |     ____) | (_|  __/ | | | (_| | |  | | (_) |")
 	print("|_|   \___|\___|\__,_|_|_|\__,_|_|    |_____/ \___\___|_| |_|\__,_|_|  |_|\___/ ")
-	print("")	
+	print("")
 	print("----" + locName[currentLoc] + "----")
 	print("--" + locDesc[currentLoc] + "--")
 	print("")
