@@ -8,8 +8,7 @@
     ▐░▌       ▐░▌▐░▌          ▐░█▄▄▄▄▄▄▄▄▄      ▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄█░█░▌▄▄▄▄█░░█▄▄▄  ▄▄▄▄▄▄▄▄▄█░▌
     ▐░▌       ▐░▌▐░▌          ▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌ ▐░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌
      ▀         ▀  ▀            ▀▀▀▀▀▀▀▀▀▀▀       ▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀ 
-                                                                                               
-                                              
+                                                                                                                                          
 <p>Welcome to "A Peculiar Scenario" - it's a rather strange game based in the Python Language.
 It is developed by <b>JakesCode</b>, better known as <b>Stringcraftgaming</b> on the <b>Indie Games Website, Gamejolt</b>.
 Jake has worked with many languages in the past, but Python is his latest "mission", so to speak.
