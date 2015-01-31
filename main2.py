@@ -5,7 +5,9 @@ import os
 
 #Set up all the dictionaries.
 #----------------------------------------------------------------
-itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right.", "hat": "The hat seems to have a few marks on it, but there are many black marks on it; they look like burns....","book": "The book goes into great detail about the Human Brain. However, someone looks like they skimmed through these pages in a hurry....", "microscope": "A small and handy piece of technology that can look at evidence in greater detail."}
+microscopeFindings = {"map": "There is nothing special about this.", "note": "There is nothing special about this.", "wrench": "A metal wrench that has a few scratches and marks on it. Apart from that, there's nothing very interesting or new about it.", "glass": "The glass semes to be fully jagged around the edges, showing somebody threw it to the floor.", "hat": "Wait a minute.... The marks really are burns. It looks like the hat fell onto a flame, before it was taken away again."}
+
+itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. You have circled many locations, but your current one seems to have lots of small scribblings around the circle.", "note": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you will see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "It's a Steel Wrench. There are small marks along the base of this tool, showing years of usage.", "glass": "Hmm.... why would nobody notice this piece of glass? It was on the bar, near to the right.", "hat": "The hat seems to have a few marks on it, but there are many black marks on it; they look like burns....","book": "The book goes into great detail about the Human Brain. However, someone looks like they skimmed through these pages in a hurry....", "microscope": "A small and handy piece of technology that can look at evidence in greater detail."}
 
 journalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)"}
 
@@ -84,6 +86,7 @@ def journalRead(entry):
 	print(journalDict[entry])
 
 def microscope(item):
+	print(microscopeFindings[item])
 	pass
 
 def useMicroscope():
@@ -100,7 +103,9 @@ def useMicroscope():
 	print("")
 	print("Please enter the keyword you want:")
 	microscopeSelection = input("?: ")
-	microscope(microscopeSelection)
+	if microscopeSelection!="":
+		microscope(microscopeSelection)
+		pass
 
 def callEvent(eventName):
 	global storyProgression
@@ -194,14 +199,14 @@ def takeItem(passedItem):
 		print("I don't need that yet.")
 		pass
 
-	if itemData[currentLoc]=="microscope" and storyProgression==20 and itemSelection=="microscope":
+	if itemData[currentLoc]=="microscope" and storyProgression==30 and itemSelection=="microscope":
 		callEvent("microscope")
 		playerInv.append(locItems[currentLoc])
 		inventoryData.append(itemData[currentLoc])
 		locItems[currentLoc]=""
 		itemData[currentLoc]=""
 		pass
-	elif itemData[currentLoc]=="microscope" and storyProgression!=20 and itemSelection=="microscope":
+	elif itemData[currentLoc]=="microscope" and storyProgression!=30 and itemSelection=="microscope":
 		print("I don't need that yet.")
 		pass
 
@@ -341,7 +346,7 @@ def displayMessage(call):
 
 	if call=="microscope":
 		os.system("cls")
-		print("Which item should be inspected with the microscope?")
+		useMicroscope()
 		pass
 
 	print("")
@@ -390,7 +395,7 @@ while currentLoc < 7:
 	print("")
 	print("Story Progress - " + str(storyProgression) + "%")
 	print("")
-	print("Type 'Help' for advice on what to do next.")
+	print("Type 'help' for advice on what to do next.")
 	passedCommand = input("?: ")
 	mainProcess(passedCommand)
 	os.system("cls")
