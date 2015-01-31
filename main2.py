@@ -9,7 +9,7 @@ itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. 
 
 journalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)"}
 
-fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference.", "glass": "This piece of glass was with many other pieces of glass. This is the largest piece, it seems.", "bolts": "There are bolts around the door, near where I found the broken glass. Perhaps a certain tool will help me open the door.", "poison": "The storage locker in the Pub seemed to have a little too much Rat Poison to match the cleanliness of the Pub. Something is going on here....","microscope": "The microscope is a small but handy piece of equipment. I can now use the microscope from the command INSPECT."}
+fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference.", "glass": "This piece of glass was with many other pieces of glass. This is the largest piece, it seems.", "bolts": "There are bolts around the door, near where I found the broken glass. Perhaps a certain tool will help me open the door.", "poison": "The storage locker in the Pub seemed to have a little too much Rat Poison to match the cleanliness of the Pub. Something is going on here....","microscope": "The microscope is a small but handy piece of equipment. I can now use the microscope from the command MICROSCOPE."}
 
 #Set up all the processes and functions etc.
 #----------------------------------------------------------------
@@ -61,9 +61,9 @@ def mainProcess(command):
 		input("")
 		os.system("cls")
 		pass
-	if command=="inspect":
+	if command=="microscope":
 		if microscopeState==1:
-			displayMessage("inspect")
+			displayMessage("microscope")
 			pass
 		elif microscopeState==0:
 			pass
@@ -190,7 +190,7 @@ def takeItem(passedItem):
 		locItems[currentLoc]=""
 		itemData[currentLoc]=""
 		pass
-	elif itemData[currentLoc]=="glass" and storyProgression==0 and itemSelection=="glass":
+	elif itemData[currentLoc]=="glass" and storyProgression!=10 and itemSelection=="glass":
 		print("I don't need that yet.")
 		pass
 
@@ -201,7 +201,7 @@ def takeItem(passedItem):
 		locItems[currentLoc]=""
 		itemData[currentLoc]=""
 		pass
-	elif itemData[currentLoc]=="microscope" and storyProgression==10 and itemSelection=="microscope":
+	elif itemData[currentLoc]=="microscope" and storyProgression!=20 and itemSelection=="microscope":
 		print("I don't need that yet.")
 		pass
 
@@ -339,9 +339,9 @@ def displayMessage(call):
 		useItem(useSelection)
 		pass
 
-	if call=="inspect":
+	if call=="microscope":
 		os.system("cls")
-		print("Inspect which item?")
+		print("Which item should be inspected with the microscope?")
 		pass
 
 	print("")
