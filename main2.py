@@ -9,7 +9,7 @@ itemDict = {"blank": "There is nothing here!", "map": "A crumpled and worn map. 
 
 journalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)"}
 
-fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference.", "glass": "This piece of glass was with many other pieces of glass. This is the largest piece, it seems.", "bolts": "There are bolts around the door, near where I found the broken glass. Perhaps a certain tool will help me open the door.", "poison": "The storage locker in the Pub seemed to have a little too much Rat Poison to match the cleanliness of the Pub. Something is going on here....","microscope": "The microscope is a small but handy piece of equipment. I can now use the microscope from the USE menu."}
+fullJournalDict = {"letter": "Hello there! I hear you're about to take the Memory Loss Potion. So, I welcome you to your new life. Enjoy the sights you see! This should be the only thing you'll have on you, if you have anything else - I highly recommend you drop it now. You might even remember who you are! Lots of luck - Dr. Brandshire (CEO of NewLife Corp)", "wrench": "The wrench I found seems to have a few red marks on it. I can't say it's blood, but it looks too dark to be paint. I'll have to remember this for future reference.", "glass": "This piece of glass was with many other pieces of glass. This is the largest piece, it seems.", "bolts": "There are bolts around the door, near where I found the broken glass. Perhaps a certain tool will help me open the door.", "poison": "The storage locker in the Pub seemed to have a little too much Rat Poison to match the cleanliness of the Pub. Something is going on here....","microscope": "The microscope is a small but handy piece of equipment. I can now use the microscope from the command INSPECT."}
 
 #Set up all the processes and functions etc.
 #----------------------------------------------------------------
@@ -60,6 +60,14 @@ def mainProcess(command):
 		print("That's just sad.")
 		input("")
 		os.system("cls")
+		pass
+	if command=="inspect":
+		if microscopeState==1:
+			displayMessage("inspect")
+			pass
+		elif microscopeState==0:
+			pass
+		pass
 
 
 def inspectItem(item):
@@ -97,7 +105,7 @@ def useMicroscope():
 def callEvent(eventName):
 	global storyProgression
 	global microscopeState
-	if eventName=="wrench" and storyProgression==0:
+	if eventName=="wrench":
 		os.system("cls")
 		print("The wrench has a lot of marks on it.")
 		print("")
@@ -106,14 +114,12 @@ def callEvent(eventName):
 		input("Please press a key....")
 		print("")
 		print("! - Journal Entry Added.")
-		playerInv.append(locItems[currentLoc])
-		inventoryData.append(itemData[currentLoc])
 		journalData.append("wrench")
 		journalDict["wrench"] = fullJournalDict["wrench"]
 		storyProgression += 10
 		pass
 
-	if eventName=="glass" and storyProgression==10:
+	if eventName=="glass":
 		os.system("cls")
 		print("Wait.... this isn't the only piece. There's loads of glass here....")
 		print("Could this possibly be a murder case?")
@@ -121,8 +127,6 @@ def callEvent(eventName):
 		print("There seems to be a door near the glass, but it's bolted shut.")
 		print("")
 		print("! - Journal Entry Added")
-		playerInv.append(locItems[currentLoc])
-		inventoryData.append(itemData[currentLoc])
 		journalData.append("glass")
 		journalDict["glass"] = fullJournalDict["glass"]
 		storyProgression += 10
@@ -130,14 +134,12 @@ def callEvent(eventName):
 		journalDict["bolts"] = fullJournalDict["bolts"]
 		pass
 
-	if eventName=="microscope" and storyProgression==20:
+	if eventName=="microscope":
 		os.system("cls")
 		print("The lab is filled with these amazing inventions.")
 		print("Perhaps it would come in handy?")
 		print("")
 		print("! - Journal Entry Added")
-		playerInv.append(locItems[currentLoc])
-		inventoryData.append(itemData[currentLoc])
 		journalData.append("microscope")
 		journalDict["microscope"] = fullJournalDict["microscope"]
 		storyProgression += 10
@@ -147,15 +149,6 @@ def callEvent(eventName):
 def useItem(item):
 	global storyProgression
 	global currentLoc
-	global microscopeState
-
-	# Microscope
-	# --------------------------------------------
-	if item=="microscope" and microscopeState==1:
-		useMicroscope()
-		pass
-	# --------------------------------------------
-	# End of Microscope section
 
 	if item=="wrench" and currentLoc==2 and storyProgression==20:
 		os.system("cls")
@@ -177,45 +170,47 @@ def useItem(item):
 		journalData.remove("bolts")
 		pass
 
-	if item=="microscope" and currentLoc==4:
-		os.system("cls")
-		print("")
-		print("")
-		print("It's just a storage locker. There's a few screws and around four bottles.")
-		print("The bottles seem to all be rat poison. I don't see why somebody would need")
-		print("such an exessive amount; the pub seems clean enough....")
-		print("")
-		print("! - Journal Entry Added")
-		print("")
-		input("Please press a key....")
-		journalData.append("poison")
-		journalDict["poison"] = fullJournalDict["poison"]
-		storyProgression += 10
-		journalData.remove("bolts")
-		pass
-
 def takeItem(passedItem):
+	global itemSelection
+	global storyProgression
 
 	# Is it an event item?
-	if itemData[currentLoc]=="wrench":
+	if itemData[currentLoc]=="wrench" and storyProgression==0 and itemSelection=="wrench":
 		callEvent("wrench")
+		playerInv.append(locItems[currentLoc])
+		inventoryData.append(itemData[currentLoc])
+		locItems[currentLoc]=""
+		itemData[currentLoc]=""
 		pass
 
-	if itemData[currentLoc]=="glass":
+	if itemData[currentLoc]=="glass" and storyProgression==10 and itemSelection=="glass":
 		callEvent("glass")
+		playerInv.append(locItems[currentLoc])
+		inventoryData.append(itemData[currentLoc])
+		locItems[currentLoc]=""
+		itemData[currentLoc]=""
+		pass
+	elif itemData[currentLoc]=="glass" and storyProgression==0 and itemSelection=="glass":
+		print("I don't need that yet.")
 		pass
 
-	if itemData[currentLoc]=="microscope":
+	if itemData[currentLoc]=="microscope" and storyProgression==20 and itemSelection=="microscope":
 		callEvent("microscope")
+		playerInv.append(locItems[currentLoc])
+		inventoryData.append(itemData[currentLoc])
+		locItems[currentLoc]=""
+		itemData[currentLoc]=""
 		pass
-
-	locItems[currentLoc]=""
-	itemData[currentLoc]=""
+	elif itemData[currentLoc]=="microscope" and storyProgression==10 and itemSelection=="microscope":
+		print("I don't need that yet.")
+		pass
 
 def displayMessage(call):
 	global currentLoc
 	global invPosition
 	global storyProgression
+	global itemSelection
+
 	os.system("cls")
 	if call=="help":
 		print("**HELP**")
@@ -310,8 +305,12 @@ def displayMessage(call):
 		print("")
 		print("Please enter the keyword you want:")
 		itemSelection = input("?: ")
-		takeItem(itemSelection)
-		pass
+		if itemSelection=="":
+			print("Please enter a selection.")
+			pass
+		elif itemSelection!="":
+			takeItem(itemSelection)
+			pass
 
 	if call=="journal":
 		os.system("cls")
@@ -338,6 +337,11 @@ def displayMessage(call):
 		print("")
 		useSelection = input("?: ")
 		useItem(useSelection)
+		pass
+
+	if call=="inspect":
+		os.system("cls")
+		print("Inspect which item?")
 		pass
 
 	print("")
